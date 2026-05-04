@@ -1,0 +1,33 @@
+services:
+  backend:
+    build:
+      context: ./backend
+    container_name: loja-mol-backend
+    environment:
+      DATABASE_URL: sqlite:////app/data/loja_mol.db
+      JWT_SECRET_KEY: "change-this-to-a-strong-random-secret-in-production"
+      CORS_ORIGINS: "http://localhost:3000"
+      BASE_URL: "http://localhost:8000"
+      UPLOADS_DIR: "/app/data/uploads"
+    volumes:
+      - backend_data:/app/data
+    ports:
+      - "8000:8000"
+    restart: unless-stopped
+
+  frontend:
+    build:
+      context: ./frontend
+    container_name: loja-mol-frontend
+    environment:
+      PUBLIC_API_BASE: http://localhost:8000/api
+      PUBLIC_WHATSAPP_NUMBER: "5511998003954"
+      PRIVATE_API_BASE: http://loja-mol-backend:8000/api
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
+    restart: unless-stopped
+
+volumes:
+  backend_data:

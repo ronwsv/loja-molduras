@@ -1,0 +1,25 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.env
+venv/
+.venv/
+
+# Node
+node_modules/
+.svelte-kit/
+build/
+dist/
+.env.local
+
+# Docker volumes / data
+backend/data/
+*.db
+
+# Uploads (user-generated files)
+backend/uploads/
+
+# OS
+.DS_Store
+Thumbs.db
