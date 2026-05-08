@@ -11,8 +11,6 @@ class User(Base):
     name = Column(String(100), nullable=False)
     email = Column(String(150), unique=True, index=True, nullable=False)
     hashed_password = Column(String(200), nullable=False)
-    phone = Column(String(20), default="")
-    address = Column(Text, default="")
     is_admin = Column(Boolean, default=False)
     created_at = Column(DateTime, default=datetime.utcnow)
 

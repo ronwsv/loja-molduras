@@ -26,17 +26,11 @@ async function request(endpoint: string, options: RequestInit = {}) {
 }
 
 export const api = {
-  // Auth
-  register: (data: { name: string; email: string; password: string; phone?: string }) =>
-    request('/auth/register', { method: 'POST', body: JSON.stringify(data) }),
-
+  // Auth (admin only)
   login: (data: { email: string; password: string }) =>
     request('/auth/login', { method: 'POST', body: JSON.stringify(data) }),
 
   getMe: () => request('/auth/me'),
-
-  updateProfile: (data: { name?: string; phone?: string; address?: string }) =>
-    request('/auth/me', { method: 'PUT', body: JSON.stringify(data) }),
 
   // Products
   getProducts: (params?: { category_id?: number; search?: string }) => {

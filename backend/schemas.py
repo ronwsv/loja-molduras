@@ -3,13 +3,6 @@ from pydantic import BaseModel, EmailStr, Field
 
 
 # --- Auth ---
-class UserCreate(BaseModel):
-    name: str
-    email: EmailStr
-    password: str
-    phone: str = ""
-
-
 class UserLogin(BaseModel):
     email: EmailStr
     password: str
@@ -19,8 +12,6 @@ class UserOut(BaseModel):
     id: int
     name: str
     email: str
-    phone: str
-    address: str
     is_admin: bool = False
     created_at: datetime
 
@@ -106,8 +97,3 @@ class ReviewOut(BaseModel):
     model_config = {"from_attributes": True}
 
 
-# --- User Update ---
-class UserUpdate(BaseModel):
-    name: str | None = None
-    phone: str | None = None
-    address: str | None = None

@@ -21,7 +21,7 @@ services:
     container_name: loja-mol-frontend
     environment:
       PUBLIC_API_BASE: http://localhost:8000/api
-      PUBLIC_WHATSAPP_NUMBER: "5511998003954"
+      PUBLIC_WHATSAPP_NUMBER: "5511983028750"
       PRIVATE_API_BASE: http://loja-mol-backend:8000/api
     depends_on:
       - backend
