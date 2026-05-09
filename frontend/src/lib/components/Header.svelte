@@ -65,6 +65,13 @@
             </svg>
             <span>Painel Admin</span>
           </a>
+        {:else}
+          <a href="/admin/login" class="header-action login-btn" title="Acesso admin">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+              <path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/>
+            </svg>
+            <span>Admin</span>
+          </a>
         {/if}
 
         <a href={whatsappContactUrl} target="_blank" rel="noopener noreferrer" class="header-action">
@@ -203,6 +210,17 @@
   .admin-btn:hover {
     background: var(--primary);
     color: var(--black);
+  }
+
+  .login-btn {
+    color: var(--gray-500);
+    opacity: 0.5;
+    font-size: 0.65rem;
+  }
+
+  .login-btn:hover {
+    color: var(--white);
+    opacity: 1;
   }
 
   @media (max-width: 768px) {
