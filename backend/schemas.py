@@ -96,6 +96,12 @@ class BannerIn(BaseModel):
     active: bool = True
 
 
+# --- Change Password ---
+class ChangePassword(BaseModel):
+    current_password: str
+    new_password: str = Field(..., min_length=6)
+
+
 # --- Contact ---
 class ContactMessage(BaseModel):
     name: str

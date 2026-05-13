@@ -32,6 +32,9 @@ export const api = {
 
   getMe: () => request('/auth/me'),
 
+  changePassword: (data: { current_password: string; new_password: string }) =>
+    request('/auth/me/password', { method: 'PUT', body: JSON.stringify(data) }),
+
   // Products
   getProducts: (params?: { category_id?: number; search?: string }) => {
     const query = new URLSearchParams();
