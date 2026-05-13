@@ -45,6 +45,13 @@ export const api = {
 
   getProduct: (id: number) => request(`/products/${id}`),
 
+  // Banners
+  getBanners: () => request('/banners'),
+  adminGetBanners: () => request('/admin/banners'),
+  adminCreateBanner: (data: object) => request('/admin/banners', { method: 'POST', body: JSON.stringify(data) }),
+  adminUpdateBanner: (id: number, data: object) => request(`/admin/banners/${id}`, { method: 'PUT', body: JSON.stringify(data) }),
+  adminDeleteBanner: (id: number) => request(`/admin/banners/${id}`, { method: 'DELETE' }),
+
   // Categories
   getCategories: () => request('/categories'),
 

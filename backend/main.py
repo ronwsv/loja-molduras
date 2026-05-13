@@ -3,7 +3,7 @@ import os
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.staticfiles import StaticFiles
 from database import engine, Base
-from routers import users, products, categories, admin
+from routers import users, products, categories, admin, banners
 
 UPLOADS_DIR = os.environ.get("UPLOADS_DIR", "/app/data/uploads")
 os.makedirs(UPLOADS_DIR, exist_ok=True)
@@ -27,6 +27,7 @@ app.include_router(users.router)
 app.include_router(products.router)
 app.include_router(categories.router)
 app.include_router(admin.router)
+app.include_router(banners.router)
 
 
 @app.get("/api/health")

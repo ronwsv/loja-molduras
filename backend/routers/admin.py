@@ -6,8 +6,8 @@ from fastapi import APIRouter, Depends, HTTPException, File, UploadFile
 from sqlalchemy.orm import Session, joinedload
 from PIL import Image
 from database import get_db
-from models import Category, Product, ProductImage, User
-from schemas import CategoryIn, CategoryOut, ProductIn, ProductOut
+from models import Banner, Category, Product, ProductImage, User
+from schemas import BannerIn, BannerOut, CategoryIn, CategoryOut, ProductIn, ProductOut
 from auth import get_admin_user
 
 router = APIRouter(prefix="/api/admin", tags=["admin"])
@@ -68,6 +68,43 @@ async def admin_upload_image(
         raise
     except Exception:
         raise HTTPException(status_code=400, detail="Erro ao processar imagem.")
+
+
+# --- Banners ---
+
+@router.get("/banners", response_model=list[BannerOut])
+def admin_list_banners(db: Session = Depends(get_db), _: User = Depends(get_admin_user)):
+    return db.query(Banner).order_by(Banner.sort_order).all()
+
+
+@router.post("/banners", response_model=BannerOut, status_code=201)
+def admin_create_banner(data: BannerIn, db: Session = Depends(get_db), _: User = Depends(get_admin_user)):
+    banner = Banner(**data.model_dump())
+    db.add(banner)
+    db.commit()
+    db.refresh(banner)
+    return banner
+
+
+@router.put("/banners/{banner_id}", response_model=BannerOut)
+def admin_update_banner(banner_id: int, data: BannerIn, db: Session = Depends(get_db), _: User = Depends(get_admin_user)):
+    banner = db.query(Banner).filter(Banner.id == banner_id).first()
+    if not banner:
+        raise HTTPException(status_code=404, detail="Banner não encontrado")
+    for k, v in data.model_dump().items():
+        setattr(banner, k, v)
+    db.commit()
+    db.refresh(banner)
+    return banner
+
+
+@router.delete("/banners/{banner_id}", status_code=204)
+def admin_delete_banner(banner_id: int, db: Session = Depends(get_db), _: User = Depends(get_admin_user)):
+    banner = db.query(Banner).filter(Banner.id == banner_id).first()
+    if not banner:
+        raise HTTPException(status_code=404, detail="Banner não encontrado")
+    db.delete(banner)
+    db.commit()
 
 
 # --- Categories ---

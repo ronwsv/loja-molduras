@@ -1,34 +1,41 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { api } from '$lib/api';
 
-  const slides = [
+  const fallbackSlides = [
     {
       title: 'Quadros',
       subtitle: 'SOB MEDIDA',
       text: 'Consulte-nos agora e transforme suas paredes com arte exclusiva!',
       cta: 'FALE CONOSCO',
-      bg: 'https://placehold.co/1400x500/1a1a1a/F5B800?text=Quadros+Sob+Medida',
+      image_url: 'https://placehold.co/1400x500/1a1a1a/F5B800?text=Quadros+Sob+Medida',
     },
     {
       title: 'Molduras',
       subtitle: 'PARA TODOS OS ESTILOS',
       text: 'Encontre a moldura perfeita para valorizar suas memórias e arte.',
       cta: 'VER COLEÇÃO',
-      bg: 'https://placehold.co/1400x500/1a1a1a/F5B800?text=Molduras+Premium',
+      image_url: 'https://placehold.co/1400x500/1a1a1a/F5B800?text=Molduras+Premium',
     },
     {
       title: 'Kits de Quadros',
       subtitle: 'DECORE SUA PAREDE',
       text: 'Kits prontos para montar a parede galeria dos seus sonhos!',
       cta: 'CONFIRA',
-      bg: 'https://placehold.co/1400x500/1a1a1a/F5B800?text=Kits+de+Quadros',
+      image_url: 'https://placehold.co/1400x500/1a1a1a/F5B800?text=Kits+de+Quadros',
     },
   ];
 
+  let slides: any[] = $state(fallbackSlides);
   let current = $state(0);
   let interval: ReturnType<typeof setInterval>;
 
-  onMount(() => {
+  onMount(async () => {
+    try {
+      const data = await api.getBanners();
+      if (data && data.length > 0) slides = data;
+    } catch { /* usa fallback */ }
+
     interval = setInterval(() => {
       current = (current + 1) % slides.length;
     }, 5000);
@@ -49,7 +56,7 @@
       <div
         class="slide"
         class:active={i === current}
-        style="background-image: url('{slide.bg}')"
+        style="background-image: url('{slide.image_url || slide.bg}')"
       >
         <div class="slide-overlay"></div>
         <div class="slide-content">

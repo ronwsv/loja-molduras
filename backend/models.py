@@ -4,6 +4,19 @@ from sqlalchemy.orm import relationship
 from database import Base
 
 
+class Banner(Base):
+    __tablename__ = "banners"
+
+    id = Column(Integer, primary_key=True, index=True)
+    title = Column(String(100), nullable=False)
+    subtitle = Column(String(200), default="")
+    text = Column(String(300), default="")
+    cta = Column(String(50), default="VER COLEÇÃO")
+    image_url = Column(String(500), default="")
+    sort_order = Column(Integer, default=0)
+    active = Column(Boolean, default=True)
+
+
 class User(Base):
     __tablename__ = "users"
 

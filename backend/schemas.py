@@ -72,6 +72,30 @@ class ProductIn(BaseModel):
     featured: bool = False
 
 
+# --- Banner ---
+class BannerOut(BaseModel):
+    id: int
+    title: str
+    subtitle: str
+    text: str
+    cta: str
+    image_url: str
+    sort_order: int
+    active: bool
+
+    model_config = {"from_attributes": True}
+
+
+class BannerIn(BaseModel):
+    title: str = Field(..., min_length=1, max_length=100)
+    subtitle: str = ""
+    text: str = ""
+    cta: str = "VER COLEÇÃO"
+    image_url: str = ""
+    sort_order: int = 0
+    active: bool = True
+
+
 # --- Contact ---
 class ContactMessage(BaseModel):
     name: str

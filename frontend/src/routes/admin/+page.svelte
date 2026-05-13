@@ -64,6 +64,7 @@
     <div class="links-row">
       <a href="/admin/produtos" class="quick-link">Gerenciar Produtos</a>
       <a href="/admin/categorias" class="quick-link">Gerenciar Categorias</a>
+      <a href="/admin/banners" class="quick-link">Gerenciar Banners</a>
     </div>
   </div>
 {/if}
